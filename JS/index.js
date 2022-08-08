@@ -1,7 +1,7 @@
-let text_input = document.getElementById("text-input");
-let title_input = document.getElementById("title-input");
-let text_submit = document.getElementById("text-submit");
-let text_output = document.getElementById("text-output");
+let title_input = document.getElementById("title");
+let text_input = document.getElementById("notes");
+let text_submit = document.getElementById("submit-btn");
+let text_output = document.getElementById("all-notes");
 
 // Getting previous notes if made before
 let notes = localStorage.getItem("notes");
@@ -12,6 +12,7 @@ if (notes !== null) {
 
 //  To add a note
 text_submit.addEventListener("click", function (e) {
+    e.preventDefault();
     let text = text_input.value;
     let title = title_input.value;
     if (text) {
@@ -24,7 +25,7 @@ text_submit.addEventListener("click", function (e) {
         text_div.setAttribute("class", "text_div");
 
         text_output.insertBefore(text_div, first);
-        let html = `<div style="border:3px solid white; border-radius: 10px; height:100%; margin-bottom:3px;" class=" flex-fill flex-wrap m-1 p-1 h-100 d-flex flex-column justify-content-center align-items-center"> <div style="margin-bottom:3px; text-align:center;" class="p-1 d-flex flex-column justify-content-center"><strong>${title}</strong><hr>${text}</div> <button type="button" class="btn btn-danger text-submit text-del" id="text-del">Delete Note</button> </div>`;
+        let html = `<div id="notes-box"><div id="notes-content"><strong>${title}</strong><hr>${text}</div><button type="button" class="text-del" id="text-del"> Delete Note</button></div>`;
         text_div.innerHTML = html;
     }
     text_input.value = "";
@@ -41,7 +42,6 @@ text_output.addEventListener("click", function (event) {
         ele = event.target.parentElement.parentElement;
         ele.remove();
     }
-
     if (text_output.children.length === 1) {
         text_output.innerHTML = `<p id="first">Nothing to show here. Use "Add a Note" section to add notes</p>`;
     }
@@ -52,8 +52,9 @@ text_output.addEventListener("click", function (event) {
 });
 
 // Deleting All Notes and clearing local storage
-let del_btn = document.getElementById("del-btn");
+let del_btn = document.getElementById("delete-btn");
 del_btn.addEventListener("click", function (e) {
+    e.preventDefault();
     let control = confirm("Do You Really Want To Do This");
     if (control) {
         localStorage.clear();
@@ -62,9 +63,9 @@ del_btn.addEventListener("click", function (e) {
 });
 
 // For toggle menu in mobile version
-var count = 0;
-let toggle = document.querySelector(".navbar-toggler");
-let toggled_elem = document.getElementById("navbarSupportedContent");
+let count = 0;
+let toggle = document.querySelector(".js_icon");
+let toggled_elem = document.getElementById("toggled_div");
 toggle.addEventListener("click", function (e) {
     count++;
     if (count % 2 !== 0) {
@@ -76,16 +77,15 @@ toggle.addEventListener("click", function (e) {
 });
 
 //  For searching notes
-let search_text = document.getElementById("search-text");
+let search_text = document.getElementById("search_notes");
 search_text.addEventListener("input", function (e) {
     if (search_text.value !== "") {
         let text_div = document.getElementsByClassName("text_div");
         let check_rem_notes = 0;
 
         Object.keys(text_div).forEach(function (key) {
-            let txt = text_div[key].innerText.toLowerCase()
-            txt = txt.replace("delete note","")
-            console.log(txt);
+            let txt = text_div[key].innerText.toLowerCase();
+            txt = txt.replace("delete note", "");
             if (txt.includes(search_text.value.toLowerCase())) {
                 text_div[key].style.display = "flex";
                 check_rem_notes--;
@@ -93,13 +93,14 @@ search_text.addEventListener("input", function (e) {
                 text_div[key].style.display = "none";
                 check_rem_notes++;
                 if (check_rem_notes === text_div.length) {
-                    document.getElementById("first").innerText = `Nothing to show here. Use "Add a Note" section to add notes`;
+                    document.getElementById(
+                        "first"
+                    ).innerText = `Nothing to show here. Use "Add a Note" section to add notes`;
                 } else {
                     document.getElementById("first").innerText = ``;
                 }
             }
         });
-
     } else {
         document.getElementById("first").innerText = ``;
         let text_div = document.getElementsByClassName("text_div");

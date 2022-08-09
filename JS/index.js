@@ -53,14 +53,25 @@ text_output.addEventListener("click", function (event) {
 
 // Deleting All Notes and clearing local storage
 let del_btn = document.getElementById("delete-btn");
-del_btn.addEventListener("click", function (e) {
-    e.preventDefault();
-    let control = confirm("Do You Really Want To Do This");
-    if (control) {
-        localStorage.clear();
-        text_output.innerHTML = `<p id="first">Nothing to show here. Use "Add a Note" section to add notes</p>`;
+del_btn.addEventListener("click", function () {
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover your notes",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            swal("Poof! All of your notes have been deleted!", {
+                icon: "success",
+            });
+            localStorage.clear();
+            text_output.innerHTML = `<p id="first">Nothing to show here. Use "Add a Note" section to add notes</p>`;
+        } else {
+            swal("Your notes are safe!");
+        }
     }
-});
+)});
 
 // For toggle menu in mobile version
 let count = 0;

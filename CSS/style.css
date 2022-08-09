@@ -134,39 +134,6 @@ nav {
     background-color: rgb(139, 103, 108);
 }
 
-@media screen and (min-width: 400px){
-    .js_icon {
-        display: none;
-    }
-
-    .parent_list {
-        flex-direction: row;
-    }
-}
-
-@media screen and (min-width: 1000px) {
-    .js_icon {
-        display: none;
-    }
-
-    nav,
-    .parent_list {
-        flex-direction: row;
-        margin-bottom: 0;
-    }
-
-    .head_link {
-        margin-right: auto;
-        width: 25%;
-    }
-
-    #toggled_div {
-        display: flex;
-        justify-content: space-between;
-        width: 70%;
-    }
-}
-
 section{
     padding: 2em 0;
 }
@@ -240,7 +207,7 @@ section h2{
 
 .note-sect{
     padding: 0.5em 0;
-    width: 60%;
+    width: 90%;
 }
 
 #beauty{
@@ -281,8 +248,46 @@ section h2{
     margin: 0.5em 0;
 }
 
+@media screen and (min-width: 400px){
+    .js_icon {
+        display: none;
+    }
+    
+    .parent_list {
+        flex-direction: row;
+    }
+
+    .note-sect{
+        padding: 0.5em 0;
+        width: 60%;
+    }
+}
+
 @media screen and (min-width: 700px){
     #beauty{
         flex-direction: row;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .js_icon {
+        display: none;
+    }
+
+    nav,
+    .parent_list {
+        flex-direction: row;
+        margin-bottom: 0;
+    }
+
+    .head_link {
+        margin-right: auto;
+        width: 25%;
+    }
+
+    #toggled_div {
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
     }
 }
